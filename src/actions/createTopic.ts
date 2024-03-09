@@ -23,7 +23,7 @@ interface CreateTopicFormState {
   errors: {
     name?: string[];
     description?: string[];
-    _form?: string[];
+    _form?: string;
   };
 }
 
@@ -35,7 +35,7 @@ export async function createTopic(
   if (!session || !session.user)
     return {
       errors: {
-        _form: ["You must be signed signed in to create a topic."],
+        _form: "You must be signed signed in to create a topic.",
       },
     };
 
@@ -61,12 +61,12 @@ export async function createTopic(
     if (error instanceof Error)
       return {
         errors: {
-          _form: [error.message],
+          _form: error.message,
         },
       };
     return {
       errors: {
-        _form: ["Something went wrong"],
+        _form: "Creating topic failed",
       },
     };
   }

@@ -13,38 +13,41 @@ import { useFormState } from "react-dom";
 import FormButton from "../common/FormButton";
 import FormError from "../common/FormError";
 
-const CreateTopicForm = () => {
-  const [formState, formAction] = useFormState(actions.createTopic, {
-    errors: {},
-  });
+const CreatePostForm = ({ slug }: { slug: string }) => {
+  const [formState, formAction] = useFormState(
+    actions.createPost.bind(null, slug),
+    {
+      errors: {},
+    }
+  );
 
   return (
     <Popover placement="left">
       <PopoverTrigger>
-        <Button color="primary">Create a Topic</Button>
+        <Button color="primary">Create a Post</Button>
       </PopoverTrigger>
       <PopoverContent>
         <form action={formAction}>
           <div className="flex flex-col gap-4 p-4 w-80">
-            <h3 className="text-lg">Create a Topic</h3>
+            <h3 className="text-lg">Create a Post</h3>
             <Input
-              name="name"
-              label="Name"
+              name="title"
+              label="Title"
               labelPlacement="outside"
-              placeholder="Name"
-              isInvalid={!!formState.errors.name}
-              errorMessage={formState.errors.name?.join(", ")}
+              placeholder="Title"
+              isInvalid={!!formState.errors.title}
+              errorMessage={formState.errors.title?.join(", ")}
             />
             <Textarea
-              name="description"
-              label="Description"
+              name="content"
+              label="Content"
               labelPlacement="outside"
-              placeholder="Describe your topic"
-              isInvalid={!!formState.errors.description}
-              errorMessage={formState.errors.description?.join(", ")}
+              placeholder="Content"
+              isInvalid={!!formState.errors.content}
+              errorMessage={formState.errors.content?.join(", ")}
             />
             <FormError>{formState.errors._form}</FormError>
-            <FormButton>Create Topic</FormButton>
+            <FormButton>Create Post</FormButton>
           </div>
         </form>
       </PopoverContent>
@@ -52,4 +55,4 @@ const CreateTopicForm = () => {
   );
 };
 
-export default CreateTopicForm;
+export default CreatePostForm;
