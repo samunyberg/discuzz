@@ -7,17 +7,13 @@ import { useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import FormError from "../common/FormError";
 
-interface CommentCreateFormProps {
+interface Props {
   postId: string;
   parentId?: string;
   startOpen?: boolean;
 }
 
-export default function CommentCreateForm({
-  postId,
-  parentId,
-  startOpen,
-}: CommentCreateFormProps) {
+const CreateCommentForm = ({ postId, parentId, startOpen }: Props) => {
   const [open, setOpen] = useState(startOpen);
   const ref = useRef<HTMLFormElement | null>(null);
   const [formState, action] = useFormState(
@@ -59,4 +55,6 @@ export default function CommentCreateForm({
       {open && form}
     </div>
   );
-}
+};
+
+export default CreateCommentForm;
