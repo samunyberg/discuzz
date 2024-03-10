@@ -1,23 +1,19 @@
 import ShowComment from "@/components/comments/ShowComment";
-import { CommentWithAuthor } from "@/db/queries/comments";
+import { fetchCommentsByPostId } from "@/db/queries/comments";
 
 interface Props {
-  fetchData: () => Promise<CommentWithAuthor[]>;
+  postId: string;
 }
 
-const CommentList = async ({ fetchData }: Props) => {
-  const comments = await fetchData();
+const CommentList = async ({ postId }: Props) => {
+  const comments = await fetchCommentsByPostId(postId);
 
   const topLevelComments = comments.filter(
     (comment) => comment.parentId === null
   );
   const renderedComments = topLevelComments.map((comment) => {
     return (
-      <ShowComment
-        key={comment.id}
-        commentId={comment.id}
-        comments={comments}
-      />
+      <ShowComment key={comment.id} commentId={comment.id} postId={postId} />
     );
   });
 
