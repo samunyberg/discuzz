@@ -1,11 +1,9 @@
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 
-interface Props {
-  postId: string;
-}
+const ShowPost = async ({ postId }: { postId: string }) => {
+  await new Promise((resolve) => setTimeout(resolve, 2500));
 
-const ShowPost = async ({ postId }: Props) => {
   const post = await db.post.findFirst({ where: { id: postId } });
 
   if (!post) notFound();

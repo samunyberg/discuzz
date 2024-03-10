@@ -1,8 +1,10 @@
 import CommentList from "@/components/comments/CommentList";
 import CreateCommentForm from "@/components/comments/CreateCommentForm";
 import ShowPost from "@/components/posts/ShowPost";
+import ShowPostLoading from "@/components/posts/ShowPostLoading";
 import paths from "@/paths";
 import Link from "next/link";
+import { Suspense } from "react";
 
 interface Props {
   params: {
@@ -17,7 +19,9 @@ const ShowPostPage = ({ params: { slug, id } }: Props) => {
       <Link className="text-purple-950" href={paths.showTopic(slug)}>
         {"< "}Back to {slug}
       </Link>
-      <ShowPost postId={id} />
+      <Suspense fallback={<ShowPostLoading />}>
+        <ShowPost postId={id} />
+      </Suspense>
       <CreateCommentForm postId={id} startOpen />
       <CommentList postId={id} />
     </div>
