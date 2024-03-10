@@ -2,8 +2,6 @@ import { db } from "@/db";
 import { notFound } from "next/navigation";
 
 const ShowPost = async ({ postId }: { postId: string }) => {
-  await new Promise((resolve) => setTimeout(resolve, 2500));
-
   const post = await db.post.findFirst({ where: { id: postId } });
 
   if (!post) notFound();
